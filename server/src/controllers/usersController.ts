@@ -13,6 +13,7 @@ interface User {
     const users: Data[] = [];
     
     const addUser = ({ id, name, room }: Data) => {
+        
         name = name.trim().toLowerCase();
         room = room.trim().toLowerCase();
     
