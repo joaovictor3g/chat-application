@@ -2,6 +2,10 @@ import React, { useState, KeyboardEvent, useEffect } from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
 
+import InfoBar from '../../components/InfoBar';
+import Input from '../../components/Input';
+import Messages from '../../components/Messages';
+
 import './styles.css';
 
 interface Location {
@@ -40,14 +44,14 @@ const Chat: React.FC<Location> = ({ location }) => {
         return () => {
             socket.emit('disconnect');
 
-            socket.off('join');
+            //socket.off('join');
         }
        
     }, [ENDPOINT, location.search]);
 
     useEffect(() => {
         socket.on('message', (message: string) => {
-            setMessages([...messages, message])
+            setMessages(messages => [...messages, message])
         });
     }, [messages]);
 
@@ -64,11 +68,14 @@ const Chat: React.FC<Location> = ({ location }) => {
     return(
         <div className="outerContainer"> 
             <div className="container">
-                <input 
-                    value={message} 
-                    onChange={e => setMessage(e.target.value)}
-                    onKeyPress={e => e.key === 'Enter' ? sendMessage(e) :  null}
+                <InfoBar room={room} />
+                <Input 
+                    message={message} 
+                    setMessage={setMessage} 
+                    sendMessage={sendMessage}
                 />
+                <Messages messages={messages} name={name}/>
+
             </div>
         </div>
     );

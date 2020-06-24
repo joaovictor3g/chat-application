@@ -20,6 +20,7 @@
     "socket.io-client": "^2.3.0",
     "typescript": "~3.7.2"
   },
+  "typings": "./dist/index.d.ts",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

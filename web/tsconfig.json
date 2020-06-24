@@ -20,6 +20,6 @@
     "jsx": "react"
   },
   "include": [
-    "src"
+    "src", "node_modules/react-scroll-to-bottom/scrollToBottom.d.ts"
   ]
 }
