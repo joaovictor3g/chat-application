@@ -2,7 +2,7 @@ interface Data {
     id: string,
     name: string,
     room: string
-}
+};
 
 interface User {
     id: string,
@@ -10,7 +10,7 @@ interface User {
     room: string
 }
 //const usersController = () => {
-    const users = <User[]>[];
+    const users: Data[] = [];
     
     const addUser = ({ id, name, room }: Data) => {
         name = name.trim().toLowerCase();
@@ -22,7 +22,7 @@ interface User {
             return { error: 'Username is taken' };
         }
     
-        const user = <Data>{ id, name, room };
+        const user: User = { id, name, room };
     
         users.push(user);
     

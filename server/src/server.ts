@@ -11,6 +11,11 @@ interface Params {
     room: string
 }
 
+interface User {
+    error: string,
+    user: string
+}
+
 const { addUser, removeUser, getUser, getUsersInRoom } = usersController;
 
 const PORT = process.env.PORT || 3333;
@@ -30,9 +35,9 @@ io.on('connection', (socket) => {
         if(error) return callback(error);
 
         socket.emit('message', { user: 'admin', text: `${user?.name}, welcome to the room ${user?.room}` })
-        socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user?.name}, has joined! ` })
+        socket.broadcast.to(user?.room || '').emit('message', { user: 'admin', text: `${user?.name}, has joined! ` })
 
-        socket.join(user.room);
+        socket.join(user?.room || '');
 
         callback();
     }); 
@@ -40,7 +45,7 @@ io.on('connection', (socket) => {
     socket.on('sendMessage', (message, callback) => {
         const user = getUser(socket.id);
 
-        io.to(user.room).emit('message', { user: user?.name, text: message });
+        io.to(user?.room || '').emit('message', { user: user?.name, text: message });
 
         callback();
     });
