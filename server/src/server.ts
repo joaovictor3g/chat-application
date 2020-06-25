@@ -4,6 +4,7 @@ import { createServer } from 'http';
 import routes from './routes';
 
 import usersController from './controllers/usersController';
+import { param } from 'jquery';
 
 interface Params {
     id: string,
