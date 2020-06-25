@@ -13,9 +13,17 @@ interface Location {
         search: string
     }
 };
+interface Messages {
+    messages: {
+        text: string,
+        user:string
+    }[];
+    name: string
+}
 
-interface Error {
-    error: string
+interface Message {
+    user: string, 
+    text: string
 }
 
 let socket: SocketIOClient.Socket;
@@ -23,7 +31,7 @@ let socket: SocketIOClient.Socket;
 const Chat: React.FC<Location> = ({ location }) => {
     const [name, setName] = useState<string>('');
     const [room, setRoom] = useState<string>('');
-    const [message, setMessage] = useState<string>('');
+    const [message, setMessage] = useState<Message>();
     const [messages, setMessages]= useState<string[]>([]);
    
 
@@ -59,7 +67,7 @@ const Chat: React.FC<Location> = ({ location }) => {
         e.preventDefault();
 
         if(message) {
-            socket.emit('sendMessage', message, () => setMessage(''));
+            socket.emit('sendMessage', message, () => setMessage(message));
         }
 
         console.log(message, messages)

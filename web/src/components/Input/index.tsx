@@ -1,21 +1,23 @@
-import React, { KeyboardEvent, Dispatch, SetStateAction } from 'react';
+import React, { KeyboardEvent, Dispatch, SetStateAction, ChangeEvent } from 'react';
 import './styles.css';
 
 interface Message {
-    message: string
+    text: string,
+    user: string,
     setMessage: (e: string) => void
     sendMessage: (e: KeyboardEvent<HTMLInputElement>) => void
 }
 
 
-const Input: React.FC<Message> = ({ message, sendMessage, setMessage }: Message) => {
+const Input: React.FC<Message> = ({ text, user , sendMessage, setMessage }) => {
+    
     return (
         <form className="form">
             <input 
                 className="input"
                 type="text"
                 placeholder="Type a message...."
-                value={message}
+                value={text && user}
                 onChange={e => setMessage(e.target.value)}
                 onKeyPress={e => e.key === 'Enter' ? sendMessage(e): null}
             />
